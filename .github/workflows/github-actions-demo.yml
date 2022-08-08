@@ -16,7 +16,7 @@ jobs:
   #        ls ${{ github.workspace }}
   #    - run: echo "🍏 This job's status is ${{ job.status }}."
   scribe-report-test:
-    run-on: ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Generate cyclonedx json SBOM - add metadata - labels, envs, name
         id: gensbom_labels
