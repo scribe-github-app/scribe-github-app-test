@@ -32,6 +32,7 @@ jobs:
         env:
           test_env: test_env_value
       - name: Generate cyclonedx json SBOM
+        id: gensbom_json
         uses: scribe-security/actions/gensbom/bom@master
         with:
           target: 'busybox:latest'
