@@ -31,4 +31,14 @@ jobs:
           label: test_label
         env:
           test_env: test_env_value
+      - name: Generate cyclonedx json SBOM
+        uses: scribe-security/actions/gensbom/bom@master
+        with:
+          target: 'busybox:latest'
+          format: json
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: gensbom-busybox-output-test
+          path: ${{ steps.gensbom_json.outputs.OUTPUT_PATH }}
 
