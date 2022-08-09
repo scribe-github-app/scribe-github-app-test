@@ -39,9 +39,10 @@ jobs:
           target: 'busybox:latest'
           format: json
           force: true
-          
+          output.path: ./provenance.json
+
       - uses: actions/upload-artifact@v2
         with:
-          name: gensbom-busybox-output-test
+          name: provenance
           path: ${{ steps.gensbom_json.outputs.OUTPUT_PATH }}
 
