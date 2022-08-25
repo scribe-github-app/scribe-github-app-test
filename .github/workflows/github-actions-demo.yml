@@ -55,6 +55,6 @@ jobs:
 
       - uses: actions/upload-artifact@v2
         with:
-        name: scribe-evidence
-        path: ${{ steps.slsa_statement.outputs.OUTPUT_PATH }}
+          name: scribe-evidence
+          path: ${{ steps.slsa_statement.outputs.OUTPUT_PATH }}
 
