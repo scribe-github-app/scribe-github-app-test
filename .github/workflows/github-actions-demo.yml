@@ -46,3 +46,15 @@ jobs:
           name: provenance
           path: ${{ steps.gensbom_json.outputs.OUTPUT_PATH }}
 
+      - name: Generate slsa prov statement
+        id: slsa_statement
+        uses: scribe-security/actions/gensbom/bom@master
+        with:
+          target: 'busybox:latest'
+          format: statement-slsa
+
+      - uses: actions/upload-artifact@v2
+        with:
+        name: scribe-evidence
+        path: ${{ steps.slsa_statement.outputs.OUTPUT_PATH }}
+
