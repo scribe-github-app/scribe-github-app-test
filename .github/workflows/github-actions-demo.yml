@@ -47,6 +47,7 @@ jobs:
         with:
           target: 'busybox:latest'
           format: statement-slsa
+          product-key: ${{ secrets.SCRIBE_DEV_PRODUCT_KEY }}
           verbose: 2
           force: true
 
