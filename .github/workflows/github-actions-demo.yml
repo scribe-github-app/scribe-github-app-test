@@ -52,8 +52,3 @@ jobs:
           name: provenance
           path: ${{ steps.gensbom_slsa.outputs.OUTPUT_PATH }}
 
-      - uses: actions/upload-artifact@v2
-        with:
-          name: scribe-evidence
-          path: ${{ steps.slsa_statement.outputs.OUTPUT_PATH }}
-
