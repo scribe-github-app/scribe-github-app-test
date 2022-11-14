@@ -31,6 +31,7 @@ jobs:
         with:
           target: 'busybox:latest'
           format: json
+          verbose: 2
           force: true
           product-key: ${{ secrets.SCRIBE_DEV_PRODUCT_KEY }}
           scribe-client-id: ${{ secrets.SCRIBE_DEV_M2M_CLIENT_ID }}
@@ -44,7 +45,8 @@ jobs:
         uses: scribe-security/actions/gensbom/bom@master
         with:
           target: 'busybox:latest'
-          format: json
+          format: statement-slsa
+          verbose: 2
           force: true
 
       - uses: actions/upload-artifact@v2
