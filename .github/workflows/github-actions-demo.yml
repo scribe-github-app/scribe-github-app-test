@@ -1,5 +1,11 @@
 name: Scribe GitHub App Workflow Demo
 on: [push]
+
+env:
+  SCRIBE_URL: "https://api.dev.hub.scribesecurity.com/scribe-proxy"
+  SCRIBE_LOGIN_URL: "https://scribesec-dev.us.auth0.com"
+  SCRIBE_AUDIENCE: "api.dev.scribesecurity.com"
+
 jobs:
   #Explore-GitHub-Actions:
   #  runs-on: ubuntu-latest
@@ -18,19 +24,6 @@ jobs:
   scribe-report-test:
     runs-on: ubuntu-latest
     steps:
-      - name: Generate cyclonedx json SBOM - add metadata - labels, envs, name
-        id: gensbom_labels
-        uses: scribe-security/actions/gensbom/bom@master
-        with:
-          target: 'busybox:latest'
-          verbose: 3
-          format: json
-          force: true
-          name: name_value
-          env: test_env
-          label: test_label
-        env:
-          test_env: test_env_value
 
       - name: Generate cyclonedx json SBOM
         id: gensbom_json
@@ -38,23 +31,28 @@ jobs:
         with:
           target: 'busybox:latest'
           format: json
+          verbose: 2
           force: true
-          output.path: ./provenance.json
-
-      - uses: actions/upload-artifact@v2
-        with:
-          name: provenance
-          path: ${{ steps.gensbom_json.outputs.OUTPUT_PATH }}
+          scribe-enable: true
+          product-key: ${{ secrets.SCRIBE_DEV_PRODUCT_KEY }}
+          scribe-client-id: ${{ secrets.SCRIBE_DEV_M2M_CLIENT_ID }}
+          scribe-client-secret: ${{ secrets.SCRIBE_DEV_M2M_CLIENT_SECRET }}
+          scribe-url: ${{ env.SCRIBE_URL }}
+          scribe-login-url: ${{ env.SCRIBE_LOGIN_URL }}
+          scribe-audience: ${{ env.SCRIBE_AUDIENCE }}
 
       - name: Generate slsa prov statement
-        id: slsa_statement
+        id: gensbom_slsa
         uses: scribe-security/actions/gensbom/bom@master
         with:
           target: 'busybox:latest'
           format: statement-slsa
+          product-key: ${{ secrets.SCRIBE_DEV_PRODUCT_KEY }}
+          verbose: 2
+          force: true
 
       - uses: actions/upload-artifact@v2
         with:
-          name: scribe-evidence
-          path: ${{ steps.slsa_statement.outputs.OUTPUT_PATH }}
+          name: provenance
+          path: ${{ steps.gensbom_slsa.outputs.OUTPUT_PATH }}
 
