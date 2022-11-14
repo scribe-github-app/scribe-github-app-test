@@ -33,6 +33,7 @@ jobs:
           format: json
           verbose: 2
           force: true
+          scribe-enable: true
           product-key: ${{ secrets.SCRIBE_DEV_PRODUCT_KEY }}
           scribe-client-id: ${{ secrets.SCRIBE_DEV_M2M_CLIENT_ID }}
           scribe-client-secret: ${{ secrets.SCRIBE_DEV_M2M_CLIENT_SECRET }}
