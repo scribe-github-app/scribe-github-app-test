@@ -29,7 +29,7 @@ jobs:
         id: gensbom_json
         uses: scribe-security/actions/gensbom/bom@master
         with:
-          target: 'busybox:latest'
+          target: 'mongo-express:1.0.0-alpha.4'
           format: json
           verbose: 2
           force: true
@@ -45,7 +45,7 @@ jobs:
         id: gensbom_slsa
         uses: scribe-security/actions/gensbom/bom@master
         with:
-          target: 'busybox:latest'
+          target: 'mongo-express:1.0.0-alpha.4'
           format: statement-slsa
           product-key: ${{ secrets.SCRIBE_DEV_PRODUCT_KEY }}
           verbose: 2
